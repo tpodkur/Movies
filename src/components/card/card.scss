@@ -1,7 +1,7 @@
 .card {
   width: 451px;
   height: 279px;
-  box-shadow: 3px 5px 10px #E5E5E5;
+  box-shadow: 3px 5px 10px #e5e5e5;
   display: flex;
 
   &__image {
@@ -23,7 +23,7 @@
     margin-top: 7px;
     font-size: 12px;
     line-height: 22px;
-    color: #827E7E;
+    color: #827e7e;
   }
 
   &__genres-list {
@@ -50,7 +50,7 @@
   padding: 2px 5px;
   font-size: 12px;
   color: rgba(0, 0, 0, 0.65);
-  background-color: #FAFAFA;
-  border: solid 1px #D9D9D9;
+  background-color: #fafafa;
+  border: solid 1px #d9d9d9;
   border-radius: 2px;
 }

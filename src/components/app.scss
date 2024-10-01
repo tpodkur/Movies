@@ -27,8 +27,10 @@ h2 {
 
 @font-face {
   font-family: 'Inter Regular';
-  src: local('Inter Regular'), local('Inter Regular'),
-  url('../fonts/Inter_18pt-Regular.ttf') format('truetype');
+  src:
+    local('Inter Regular'),
+    local('Inter Regular'),
+    url('../fonts/Inter_18pt-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }

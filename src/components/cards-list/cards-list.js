@@ -3,23 +3,22 @@ import Card from '../card/card';
 import './cards-list.scss';
 
 const CardsList = () => {
-
   return (
     <ul className="cards-list">
       <li>
-        <Card/>
+        <Card />
       </li>
       <li>
-        <Card/>
+        <Card />
       </li>
       <li>
-        <Card/>
+        <Card />
       </li>
       <li>
-        <Card/>
+        <Card />
       </li>
     </ul>
   );
-}
+};
 
 export default CardsList;
