@@ -1,15 +1,9 @@
 import './app.scss';
-import Card from './card/card';
+import CardsList from '../components/cards-list/cards-list';
 
 function App() {
   return (
-    <div>
-      <ul className="cards-list">
-        <li>
-          <Card />
-        </li>
-      </ul>
-    </div>
+      <CardsList />
   );
 }
 
