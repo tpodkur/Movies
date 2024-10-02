@@ -1,5 +1,6 @@
 import React from 'react';
 import './card.scss';
+import { format } from 'date-fns';
 
 const shortenText = (charactersPerLine, linesCount, text) => {
   const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
@@ -27,13 +28,14 @@ const Card = ({ name, date, genres, description, imgSrc }) => {
       <div className="genre">{id}</div>
     </li>
   ));
+  const displayedDate = date ? format(new Date(date), 'MMMM d, y') : null;
 
   return (
     <div className="card">
       <img className="card__image" alt="movie-poster" src={imgSrc ? imgUrl : process.env.PUBLIC_URL + '/default.jpg'} />
       <div className="card__info movie">
         <h2 className="movie__title">{name}</h2>
-        <p className="movie__date">{date}</p>
+        <p className="movie__date">{displayedDate}</p>
         <ul className="movie__genres-list">{displayedGenres}</ul>
         <p className="movie__description">{displayedText}</p>
       </div>

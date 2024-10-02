@@ -8,10 +8,11 @@ export default class CardsList extends Component {
   state = {
     cards: null,
   };
+  movieKeyword = 'return';
 
   componentDidMount() {
     const api = new MoviesApiService();
-    api.getMoviesByKeyword('return').then((movies) => {
+    api.getMoviesByKeyword(this.movieKeyword).then((movies) => {
       const cards = movies.map((movie) => (
         <li key={movie.id}>
           <Card
