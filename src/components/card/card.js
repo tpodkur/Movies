@@ -15,8 +15,8 @@ const calculateDescriptionParameters = (name, date, genres) => {
   };
 };
 
-const Card = ({ name, date, genres, description, imgSrc }) => {
-  const imgUrl = `https://image.tmdb.org/t/p/original${imgSrc}`;
+const Card = ({ name, date, genres, description, img }) => {
+  const displayedImg = img ? `https://image.tmdb.org/t/p/original${img}` : process.env.PUBLIC_URL + '/default.jpg';
   const { charactersPerLine, linesCount } = calculateDescriptionParameters(name, date, genres);
 
   const displayedText =
@@ -32,7 +32,7 @@ const Card = ({ name, date, genres, description, imgSrc }) => {
 
   return (
     <div className="card">
-      <img className="card__image" alt="movie-poster" src={imgSrc ? imgUrl : process.env.PUBLIC_URL + '/default.jpg'} />
+      <img className="card__image" alt="movie-poster" src={displayedImg} />
       <div className="card__info movie">
         <h2 className="movie__title">{name}</h2>
         <p className="movie__date">{displayedDate}</p>
