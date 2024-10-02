@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Card from '../card/card';
 import './cards-list.scss';
+import { MoviesApiService } from '../../services/MoviesApiService';
 
-const CardsList = () => {
-  return (
-    <ul className="cards-list">
-      <li>
-        <Card />
-      </li>
-      <li>
-        <Card />
-      </li>
-      <li>
-        <Card />
-      </li>
-      <li>
-        <Card />
-      </li>
-    </ul>
-  );
-};
+export default class CardsList extends Component {
+  state = {
+    cards: null,
+  };
 
-export default CardsList;
+  componentDidMount() {
+    const api = new MoviesApiService();
+    api.getMoviesByKeyword('return').then((movies) => {
+      const cards = movies.map((movie) => (
+        <li key={movie.id}>
+          <Card
+            name={movie.title}
+            date={movie.release_date}
+            genres={movie.genre_ids}
+            description={movie.overview}
+            imgSrc={movie.backdrop_path}
+          />
+        </li>
+      ));
+      this.setState({ cards });
+    });
+  }
+
+  render() {
+    return <ul className="cards-list">{this.state.cards}</ul>;
+  }
+}

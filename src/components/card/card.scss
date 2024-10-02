@@ -5,7 +5,9 @@
   display: flex;
 
   &__image {
-    height: 100%;
+    width: 183px;
+    object-fit: cover;
+    object-position: center;
   }
 
   &__info {
@@ -14,6 +16,8 @@
 }
 
 .movie {
+  overflow: hidden;
+
   &__title {
     font-size: 20px;
     line-height: 28px;
@@ -41,8 +45,6 @@
     margin-top: 7px;
     font-size: 12px;
     line-height: 22px;
-    height: 152px;
-    overflow: hidden;
   }
 }
 
