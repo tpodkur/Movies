@@ -8,13 +8,6 @@ const shortenText = (charactersPerLine, linesCount, text) => {
   return slicedTextInArr.join(' ') + ' ...';
 };
 
-const calculateDescriptionParameters = (name, date, genres) => {
-  return {
-    charactersPerLine: 40,
-    linesCount: 5 + (name.length < 23) + !date.length + !genres.length,
-  };
-};
-
 const calculateLinesCount = (cardElement, nameElement, dateElement, genresListElement) => {
   const cardHeight = cardElement.clientHeight;
   const nameHeight = nameElement.clientHeight;
@@ -38,35 +31,46 @@ export default class Card extends Component {
   genresListElement;
   descriptionElement;
 
-  constructor({ name, date, genres, description, img }) {
+  movieName;
+  movieImgPath;
+  movieDescription = {
+    text: '',
+    charactersPerLine: 35,
+    linesCount: 4,
+  };
+  movieGenresArr;
+  movieReleaseDate;
+
+  constructor({ name }) {
     super();
-    this.name = name;
-    this.date = date;
-    this.genres = genres;
-    this.description = description;
-    this.img = img;
+    this.movieName = name;
   }
 
   componentDidMount() {
-    calculateLinesCount(this.cardElement, this.nameElement, this.dateElement, this.genresListElement);
+    this.movieDescription.linesCount = calculateLinesCount(
+      this.cardElement,
+      this.nameElement,
+      this.dateElement,
+      this.genresListElement
+    );
   }
 
-  render() {
-    const { name, date, genres, description, img } = this;
-
-    const displayedImg = img ? `https://image.tmdb.org/t/p/original${img}` : process.env.PUBLIC_URL + '/default.jpg';
-    const { charactersPerLine, linesCount } = calculateDescriptionParameters(name, date, genres);
-
-    const displayedText =
-      description.length > charactersPerLine * linesCount
-        ? shortenText(charactersPerLine, linesCount, description)
+  convertParamsToDisplay({ date, genres, description, img }) {
+    this.movieImgPath = img ? `https://image.tmdb.org/t/p/original${img}` : process.env.PUBLIC_URL + '/default.jpg';
+    this.movieDescription.text =
+      description.length > this.movieDescription.charactersPerLine * this.movieDescription.linesCount
+        ? shortenText(this.movieDescription.charactersPerLine, this.movieDescription.linesCount, description)
         : description;
-    const displayedGenres = genres.map((genre) => (
+    this.movieGenresArr = genres.map((genre) => (
       <li className="movie__genre" key={genre.id}>
         <div className="genre">{genre.name}</div>
       </li>
     ));
-    const displayedDate = date ? format(new Date(date), 'MMMM d, y') : null;
+    this.movieReleaseDate = date ? format(new Date(date), 'MMMM d, y') : null;
+  }
+
+  render() {
+    this.convertParamsToDisplay(this.props);
 
     return (
       <div
@@ -75,7 +79,7 @@ export default class Card extends Component {
           this.cardElement = el;
         }}
       >
-        <img className="card__image" alt="movie-poster" src={displayedImg} />
+        <img className="card__image" alt="movie-poster" src={this.movieImgPath} />
         <div className="card__info movie">
           <h2
             className="movie__name"
@@ -83,7 +87,7 @@ export default class Card extends Component {
               this.nameElement = el;
             }}
           >
-            {name}
+            {this.movieName}
           </h2>
           <p
             className="movie__date"
@@ -91,7 +95,7 @@ export default class Card extends Component {
               this.dateElement = el;
             }}
           >
-            {displayedDate}
+            {this.movieReleaseDate}
           </p>
           <ul
             className="movie__genres-list"
@@ -99,7 +103,7 @@ export default class Card extends Component {
               this.genresListElement = el;
             }}
           >
-            {displayedGenres}
+            {this.movieGenresArr}
           </ul>
           <p
             className="movie__description"
@@ -107,7 +111,7 @@ export default class Card extends Component {
               this.descriptionElement = el;
             }}
           >
-            {displayedText}
+            {this.movieDescription.text}
           </p>
         </div>
       </div>
