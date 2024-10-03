@@ -23,9 +23,9 @@ const Card = ({ name, date, genres, description, img }) => {
     description.length > charactersPerLine * linesCount
       ? shortenText(charactersPerLine, linesCount, description)
       : description;
-  const displayedGenres = genres.map((id) => (
-    <li className="movie__genre" key={id}>
-      <div className="genre">{id}</div>
+  const displayedGenres = genres.map((genre) => (
+    <li className="movie__genre" key={genre.id}>
+      <div className="genre">{genre.name}</div>
     </li>
   ));
   const displayedDate = date ? format(new Date(date), 'MMMM d, y') : null;
