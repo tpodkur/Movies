@@ -78,7 +78,7 @@ export default class Card extends Component {
         <img className="card__image" alt="movie-poster" src={displayedImg} />
         <div className="card__info movie">
           <h2
-            className="movie__title"
+            className="movie__name"
             ref={(el) => {
               this.nameElement = el;
             }}
