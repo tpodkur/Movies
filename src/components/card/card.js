@@ -15,9 +15,9 @@ const calculateDescriptionParameters = (name, date, genres) => {
   };
 };
 
-const calculateLinesCount = (cardElement, titleElement, dateElement, genresListElement) => {
+const calculateLinesCount = (cardElement, nameElement, dateElement, genresListElement) => {
   const cardHeight = cardElement.clientHeight;
-  const titleHeight = titleElement.clientHeight;
+  const nameHeight = nameElement.clientHeight;
   const dateHeight = dateElement.clientHeight;
   const listHeight = genresListElement.clientHeight;
   const dateMarginTop = 7;
@@ -26,14 +26,14 @@ const calculateLinesCount = (cardElement, titleElement, dateElement, genresListE
   const descriptionLineHeight = 22;
 
   const remainingHeight =
-    cardHeight - (titleHeight + dateMarginTop + dateHeight + listMarginTop + listHeight + descriptionMarginTop);
+    cardHeight - (nameHeight + dateMarginTop + dateHeight + listMarginTop + listHeight + descriptionMarginTop);
 
   return Math.floor(remainingHeight / descriptionLineHeight) - 1;
 };
 
 export default class Card extends Component {
   cardElement;
-  titleElement;
+  nameElement;
   dateElement;
   genresListElement;
   descriptionElement;
@@ -48,7 +48,7 @@ export default class Card extends Component {
   }
 
   componentDidMount() {
-    calculateLinesCount(this.cardElement, this.titleElement, this.dateElement, this.genresListElement);
+    calculateLinesCount(this.cardElement, this.nameElement, this.dateElement, this.genresListElement);
   }
 
   render() {
@@ -80,7 +80,7 @@ export default class Card extends Component {
           <h2
             className="movie__title"
             ref={(el) => {
-              this.titleElement = el;
+              this.nameElement = el;
             }}
           >
             {name}
