@@ -13,11 +13,22 @@ export class MoviesApiService {
     const res = await this.getResource(
       `https://api.themoviedb.org/3/search/movie?api_key=${this._apiKey}&query=${keyword}`
     );
-    return res.results;
+    return this.convertMovieData(res.results);
   }
 
   async getGenres() {
     const res = await this.getResource(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this._apiKey}`);
     return res.genres;
+  }
+
+  convertMovieData(movies) {
+    return movies.map((movie) => ({
+      id: movie.id,
+      name: movie.title,
+      image: movie.backdrop_path,
+      description: movie.overview,
+      genreIds: movie.genre_ids,
+      releaseDate: movie.release_date,
+    }));
   }
 }

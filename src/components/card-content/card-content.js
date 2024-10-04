@@ -32,11 +32,11 @@ const convertGenres = (genreIds, genreNamesArr) => {
 const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y') : null);
 
 const CardContent = ({ genres, ...movie }) => {
-  const movieName = movie.title;
-  const movieImgPath = convertImgPath(movie.backdrop_path);
-  const movieDescription = convertDescription(movie.overview);
-  const movieGenres = convertGenres(movie.genre_ids, genres);
-  const movieReleaseDate = convertReleaseDate(movie.release_date);
+  const movieName = movie.name;
+  const movieImgPath = convertImgPath(movie.image);
+  const movieDescription = convertDescription(movie.description);
+  const movieGenres = convertGenres(movie.genreIds, genres);
+  const movieReleaseDate = convertReleaseDate(movie.releaseDate);
 
   return (
     <React.Fragment>
