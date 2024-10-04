@@ -7,6 +7,7 @@ import { MoviesApiService } from '../../services/MoviesApiService';
 export default class CardsList extends Component {
   state = {
     cards: null,
+    loading: true,
   };
   movieKeyword = 'return';
   genres;
@@ -19,10 +20,10 @@ export default class CardsList extends Component {
       api.getMoviesByKeyword(this.movieKeyword).then((movies) => {
         const cards = movies.map((movie) => (
           <li key={movie.id}>
-            <Card {...movie} genres={this.genres} />
+            <Card {...movie} genres={this.genres} loading={this.state.loading} />
           </li>
         ));
-        this.setState({ cards });
+        this.setState({ cards, loading: false });
       });
     });
   }
