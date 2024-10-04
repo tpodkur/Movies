@@ -1,14 +1,15 @@
 import React from 'react';
 import { format } from 'date-fns';
 
+import img from './default-movie-img.jpg';
+
 const shortenText = (charactersPerLine, linesCount, text) => {
   const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
   slicedTextInArr.pop();
   return slicedTextInArr.join(' ') + ' ...';
 };
 
-const convertImgPath = (path) =>
-  path ? `https://image.tmdb.org/t/p/original${path}` : process.env.PUBLIC_URL + '/default.jpg';
+const convertImgPath = (path) => (path ? `https://image.tmdb.org/t/p/original${path}` : img);
 
 const convertDescription = (description) => {
   const charactersPerLine = 35;
