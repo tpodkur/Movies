@@ -3,6 +3,7 @@
   height: 279px;
   box-shadow: 3px 5px 10px #e5e5e5;
   display: flex;
+  position: relative;
 
   &__image {
     width: 183px;
@@ -12,6 +13,13 @@
 
   &__info {
     padding: 10px 20px;
+  }
+
+  &__spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
   }
 }
 

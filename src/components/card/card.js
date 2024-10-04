@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './card.scss';
 import { format } from 'date-fns';
 
+import Spinner from '../spinner/spinner';
+
 const shortenText = (charactersPerLine, linesCount, text) => {
   const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
   slicedTextInArr.pop();
@@ -79,6 +81,9 @@ export default class Card extends Component {
           this.cardElement = el;
         }}
       >
+        <div className="card__spinner">
+          <Spinner size="large" />
+        </div>
         <img className="card__image" alt="movie-poster" src={this.movieImgPath} />
         <div className="card__info movie">
           <h2
