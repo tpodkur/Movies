@@ -10,29 +10,7 @@ const shortenText = (charactersPerLine, linesCount, text) => {
   return slicedTextInArr.join(' ') + ' ...';
 };
 
-const calculateLinesCount = (cardElement, nameElement, dateElement, genresListElement) => {
-  const cardHeight = cardElement.clientHeight;
-  const nameHeight = nameElement.clientHeight;
-  const dateHeight = dateElement.clientHeight;
-  const listHeight = genresListElement.clientHeight;
-  const dateMarginTop = 7;
-  const listMarginTop = 7;
-  const descriptionMarginTop = 7;
-  const descriptionLineHeight = 22;
-
-  const remainingHeight =
-    cardHeight - (nameHeight + dateMarginTop + dateHeight + listMarginTop + listHeight + descriptionMarginTop);
-
-  return Math.floor(remainingHeight / descriptionLineHeight) - 1;
-};
-
 export default class Card extends Component {
-  cardElement;
-  nameElement;
-  dateElement;
-  genresListElement;
-  descriptionElement;
-
   movieName;
   movieImgPath;
   movieDescription = {
@@ -43,18 +21,10 @@ export default class Card extends Component {
   movieGenresArr;
   movieReleaseDate;
 
-  constructor({ name }) {
+  constructor({ name, ...props }) {
     super();
     this.movieName = name;
-  }
-
-  componentDidMount() {
-    this.movieDescription.linesCount = calculateLinesCount(
-      this.cardElement,
-      this.nameElement,
-      this.dateElement,
-      this.genresListElement
-    );
+    this.convertParamsToDisplay(props);
   }
 
   convertParamsToDisplay({ date, genres, description, img }) {
@@ -72,52 +42,17 @@ export default class Card extends Component {
   }
 
   render() {
-    this.convertParamsToDisplay(this.props);
-
     return (
-      <div
-        className="card"
-        ref={(el) => {
-          this.cardElement = el;
-        }}
-      >
+      <div className="card">
         <div className="card__spinner">
           <Spinner size="large" />
         </div>
         <img className="card__image" alt="movie-poster" src={this.movieImgPath} />
         <div className="card__info movie">
-          <h2
-            className="movie__name"
-            ref={(el) => {
-              this.nameElement = el;
-            }}
-          >
-            {this.movieName}
-          </h2>
-          <p
-            className="movie__date"
-            ref={(el) => {
-              this.dateElement = el;
-            }}
-          >
-            {this.movieReleaseDate}
-          </p>
-          <ul
-            className="movie__genres-list"
-            ref={(el) => {
-              this.genresListElement = el;
-            }}
-          >
-            {this.movieGenresArr}
-          </ul>
-          <p
-            className="movie__description"
-            ref={(el) => {
-              this.descriptionElement = el;
-            }}
-          >
-            {this.movieDescription.text}
-          </p>
+          <h2 className="movie__name">{this.movieName}</h2>
+          <p className="movie__date">{this.movieReleaseDate}</p>
+          <ul className="movie__genres-list">{this.movieGenresArr}</ul>
+          <p className="movie__description">{this.movieDescription.text}</p>
         </div>
       </div>
     );
