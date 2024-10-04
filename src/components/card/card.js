@@ -21,13 +21,13 @@ export default class Card extends Component {
   movieGenresArr;
   movieReleaseDate;
 
-  constructor({ name, ...props }) {
+  constructor(props) {
     super();
-    this.movieName = name;
     this.convertParamsToDisplay(props);
   }
 
-  convertParamsToDisplay({ date, genres, description, img }) {
+  convertParamsToDisplay({ name, date, genres, description, img }) {
+    this.movieName = name;
     this.movieImgPath = img ? `https://image.tmdb.org/t/p/original${img}` : process.env.PUBLIC_URL + '/default.jpg';
     this.movieDescription.text =
       description.length > this.movieDescription.charactersPerLine * this.movieDescription.linesCount
