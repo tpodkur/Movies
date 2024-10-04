@@ -1,39 +1,41 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const CardContent = (props) => {
-  let movieName;
-  let movieImgPath;
-  let movieDescription = {
-    text: '',
-    charactersPerLine: 35,
-    linesCount: 4,
-  };
-  let movieGenresArr;
-  let movieReleaseDate;
+const shortenText = (charactersPerLine, linesCount, text) => {
+  const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
+  slicedTextInArr.pop();
+  return slicedTextInArr.join(' ') + ' ...';
+};
 
-  const shortenText = (charactersPerLine, linesCount, text) => {
-    const slicedTextInArr = text.slice(0, charactersPerLine * linesCount).split(' ');
-    slicedTextInArr.pop();
-    return slicedTextInArr.join(' ') + ' ...';
-  };
+const convertImgPath = (path) =>
+  path ? `https://image.tmdb.org/t/p/original${path}` : process.env.PUBLIC_URL + '/default.jpg';
 
-  const convertParamsToDisplay = ({ name, date, genres, description, img }) => {
-    movieName = name;
-    movieImgPath = img ? `https://image.tmdb.org/t/p/original${img}` : process.env.PUBLIC_URL + '/default.jpg';
-    movieDescription.text =
-      description.length > movieDescription.charactersPerLine * movieDescription.linesCount
-        ? shortenText(movieDescription.charactersPerLine, movieDescription.linesCount, description)
-        : description;
-    movieGenresArr = genres.map((genre) => (
+const convertDescription = (description) => {
+  const charactersPerLine = 35;
+  const linesCount = 4;
+  return description.length > charactersPerLine * linesCount
+    ? shortenText(charactersPerLine, linesCount, description)
+    : description;
+};
+
+const convertGenres = (genreIds, genreNamesArr) => {
+  return genreIds
+    .map((id) => genreNamesArr.find((genre) => id === genre.id))
+    .map((genre) => (
       <li className="movie__genre" key={genre.id}>
         <div className="genre">{genre.name}</div>
       </li>
     ));
-    movieReleaseDate = date ? format(new Date(date), 'MMMM d, y') : null;
-  };
+};
 
-  convertParamsToDisplay(props);
+const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y') : null);
+
+const CardContent = ({ genres, ...movie }) => {
+  const movieName = movie.title;
+  const movieImgPath = convertImgPath(movie.backdrop_path);
+  const movieDescription = convertDescription(movie.overview);
+  const movieGenres = convertGenres(movie.genre_ids, genres);
+  const movieReleaseDate = convertReleaseDate(movie.release_date);
 
   return (
     <React.Fragment>
@@ -41,8 +43,8 @@ const CardContent = (props) => {
       <div className="card__info movie">
         <h2 className="movie__name">{movieName}</h2>
         <p className="movie__date">{movieReleaseDate}</p>
-        <ul className="movie__genres-list">{movieGenresArr}</ul>
-        <p className="movie__description">{movieDescription.text}</p>
+        <ul className="movie__genres-list">{movieGenres}</ul>
+        <p className="movie__description">{movieDescription}</p>
       </div>
     </React.Fragment>
   );

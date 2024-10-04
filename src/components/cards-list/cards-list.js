@@ -11,16 +11,6 @@ export default class CardsList extends Component {
   movieKeyword = 'return';
   genres;
 
-  formatMovieData(movieServerData) {
-    return {
-      name: movieServerData.title,
-      date: movieServerData.release_date,
-      genres: this.genres ? movieServerData.genre_ids.map((id) => this.genres.find((genre) => id === genre.id)) : [],
-      description: movieServerData.overview,
-      img: movieServerData.backdrop_path,
-    };
-  }
-
   componentDidMount() {
     const api = new MoviesApiService();
     api.getGenres().then((genres) => {
@@ -29,7 +19,7 @@ export default class CardsList extends Component {
       api.getMoviesByKeyword(this.movieKeyword).then((movies) => {
         const cards = movies.map((movie) => (
           <li key={movie.id}>
-            <Card {...this.formatMovieData(movie)} />
+            <Card {...movie} genres={this.genres} />
           </li>
         ));
         this.setState({ cards });
