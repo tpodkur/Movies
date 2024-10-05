@@ -1,8 +1,10 @@
+import React from 'react';
+
 import './app.scss';
-import CardsList from '../components/cards-list/cards-list';
+import MainPage from './main-page/main-page';
 
 function App() {
-  return <CardsList />;
+  return <MainPage />;
 }
 
 export default App;
