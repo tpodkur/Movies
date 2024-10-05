@@ -11,31 +11,39 @@ export default class CardsList extends Component {
     loading: true,
     error: false,
   };
-  movieKeyword = 'return';
   genres;
+  api = new MoviesApiService();
 
   onError() {
     this.setState({ error: true, loading: false });
   }
 
   componentDidMount() {
-    const api = new MoviesApiService();
-    api
+    this.api
       .getGenres()
       .then((genres) => {
         this.genres = genres;
 
-        api
-          .getMoviesByKeyword(this.movieKeyword)
-          .then((movies) => {
-            const cards = movies.map((movie) => (
-              <li key={movie.id}>
-                <Card {...movie} genres={this.genres} loading={this.state.loading} error={this.state.error} />
-              </li>
-            ));
-            this.setState({ cards, loading: false });
-          })
-          .catch(this.onError.bind(this));
+        this.updateMoviesList();
+      })
+      .catch(this.onError.bind(this));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.searchValue === this.props.searchValue) return;
+    this.updateMoviesList();
+  }
+
+  updateMoviesList() {
+    this.api
+      .getMoviesByKeyword(this.props.searchValue)
+      .then((movies) => {
+        const cards = movies.map((movie) => (
+          <li key={movie.id}>
+            <Card {...movie} genres={this.genres} loading={this.state.loading} error={this.state.error} />
+          </li>
+        ));
+        this.setState({ cards, loading: false });
       })
       .catch(this.onError.bind(this));
   }
@@ -45,7 +53,7 @@ export default class CardsList extends Component {
       <div className="cards-error">
         <Error
           message="Something went wrong :("
-          description="No movies were found for your search. Please try again later or make sure you entered the correct query."
+          description="Please try again later or make sure you entered the correct query."
         />
       </div>
     );
