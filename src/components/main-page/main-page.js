@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import './main-page.scss';
+import debounce from 'lodash/debounce';
+
 import SearchBar from '../search-bar/search-bar';
 import CardsList from '../cards-list/cards-list';
 
@@ -9,11 +10,9 @@ export default class MainPage extends Component {
     searchValue: 'return',
   };
 
-  onSearch = (value) => {
-    this.setState({ searchValue: value }, () => {
-      console.log(this.state.searchValue);
-    });
-  };
+  onSearch = debounce((value) => {
+    this.setState({ searchValue: value });
+  }, 300);
 
   render() {
     return (
