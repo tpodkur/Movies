@@ -3,6 +3,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 35px;
+
+  &__message {
+    font-size: 20px;
+  }
 }
 
 .cards-error {
