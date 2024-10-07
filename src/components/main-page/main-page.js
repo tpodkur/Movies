@@ -3,7 +3,6 @@ import './main-page.scss';
 import debounce from 'lodash/debounce';
 
 import SearchBar from '../search-bar/search-bar';
-import Pagination from '../pagination/pagination';
 import CardsListWrapper from '../cards-list-wrapper/cards-list-wrapper';
 
 export default class MainPage extends Component {
@@ -22,9 +21,6 @@ export default class MainPage extends Component {
           <SearchBar onSearch={this.onSearch} />
         </div>
         <CardsListWrapper searchValue={this.state.searchValue} />
-        <div className="main-page__pagination">
-          <Pagination />
-        </div>
       </div>
     );
   }

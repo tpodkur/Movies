@@ -1,15 +1,8 @@
 .main-page {
   width: 938px;
   margin: 21px auto;
-  display: flex;
-  flex-direction: column;
 
   &__search-bar {
     margin-bottom: 34px;
-  }
-
-  &__pagination {
-    display: inline-block;
-    margin: 36px auto 0 auto;
   }
 }

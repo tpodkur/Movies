@@ -9,9 +9,9 @@ export class MoviesApiService {
     return await res.json();
   }
 
-  async getMoviesByKeyword(keyword) {
+  async getMoviesByKeyword(keyword, page = 1) {
     const res = await this.getResource(
-      `https://api.themoviedb.org/3/search/movie?api_key=${this._apiKey}&query=${keyword}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${this._apiKey}&query=${keyword}&page=${page}`
     );
     return this.convertResponseData(res);
   }

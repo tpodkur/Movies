@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import './cards-list-wrapper.scss';
 
 import Error from '../error/error';
 import CardsList from '../cards-list/cards-list';
 import { MoviesApiService } from '../../services/MoviesApiService';
+import Pagination from '../pagination/pagination';
 
 export default class CardsListWrapper extends Component {
   state = {
     movies: [],
+    totalMovies: 0,
+    page: 1,
+    totalPages: 1,
     loading: true,
     error: false,
   };
@@ -24,24 +29,36 @@ export default class CardsListWrapper extends Component {
       .then((genres) => {
         this.genres = genres;
 
-        this.updateMoviesList();
+        this.updateMoviesList(this.props.searchValue, this.state.page);
       })
       .catch(this.onError.bind(this));
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.searchValue === this.props.searchValue) return;
-    this.updateMoviesList();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.searchValue === this.props.searchValue && prevState.page === this.state.page) return;
+    this.updateMoviesList(this.props.searchValue, this.state.page);
   }
 
-  updateMoviesList() {
+  updateMoviesList(searchValue, page) {
     this.api
-      .getMoviesByKeyword(this.props.searchValue)
+      .getMoviesByKeyword(searchValue, page)
       .then((response) => {
-        this.setState({ movies: response.movies, loading: false });
+        const { movies, totalMovies, page, totalPages } = response;
+        this.setState({
+          movies,
+          totalMovies,
+          page,
+          totalPages,
+          loading: false,
+        });
       })
       .catch(this.onError.bind(this));
   }
+
+  onPageChange = (page) => {
+    this.setState({ page });
+  };
+
   render() {
     const errorBox = (
       <div className="cards-error">
@@ -53,12 +70,21 @@ export default class CardsListWrapper extends Component {
     );
 
     const content = (
-      <CardsList
-        movies={this.state.movies}
-        genres={this.genres}
-        loading={this.state.loading}
-        searchValue={this.props.searchValue}
-      />
+      <div className="cards-list-wrapper">
+        <CardsList
+          movies={this.state.movies}
+          genres={this.genres}
+          loading={this.state.loading}
+          searchValue={this.props.searchValue}
+        />
+        <div className="cards-list-wrapper__pagination">
+          <Pagination
+            page={this.state.page}
+            totalItemsCount={this.state.totalMovies}
+            onPageChange={this.onPageChange}
+          />
+        </div>
+      </div>
     );
 
     return this.state.error ? errorBox : content;
