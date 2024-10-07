@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce';
 
 import SearchBar from '../search-bar/search-bar';
 import CardsList from '../cards-list/cards-list';
+import Pagination from '../pagination/pagination';
 
 export default class MainPage extends Component {
   state = {
@@ -21,6 +22,9 @@ export default class MainPage extends Component {
           <SearchBar onSearch={this.onSearch} />
         </div>
         <CardsList searchValue={this.state.searchValue} />
+        <div className="main-page__pagination">
+          <Pagination />
+        </div>
       </div>
     );
   }
