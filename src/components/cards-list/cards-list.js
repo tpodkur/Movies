@@ -7,7 +7,7 @@ import { MoviesApiService } from '../../services/MoviesApiService';
 
 export default class CardsList extends Component {
   state = {
-    cards: null,
+    movies: [],
     loading: true,
     error: false,
   };
@@ -38,12 +38,7 @@ export default class CardsList extends Component {
     this.api
       .getMoviesByKeyword(this.props.searchValue)
       .then((movies) => {
-        const cards = movies.map((movie) => (
-          <li key={movie.id}>
-            <Card {...movie} genres={this.genres} loading={this.state.loading} error={this.state.error} />
-          </li>
-        ));
-        this.setState({ cards, loading: false });
+        this.setState({ movies, loading: false });
       })
       .catch(this.onError.bind(this));
   }
@@ -57,7 +52,16 @@ export default class CardsList extends Component {
         />
       </div>
     );
-    const content = <ul className="cards-list">{this.state.cards}</ul>;
+    const content = (
+      <ul className="cards-list">
+        {this.state.movies.map((movie) => (
+          <li key={movie.id}>
+            <Card {...movie} genres={this.genres} loading={this.state.loading} error={this.state.error} />
+          </li>
+        ))}
+      </ul>
+    );
+
     return this.state.error ? errorBox : content;
   }
 }
