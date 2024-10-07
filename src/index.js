@@ -4,7 +4,7 @@ import './index.css';
 import { Alert } from 'antd';
 import { Offline, Online } from 'react-detect-offline';
 
-import App from './components/app';
+import App from './components/app/app';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
