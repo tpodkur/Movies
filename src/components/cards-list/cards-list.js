@@ -14,7 +14,8 @@ export default class CardsList extends Component {
   genres;
   api = new MoviesApiService();
 
-  onError() {
+  onError(err) {
+    console.log(err);
     this.setState({ error: true, loading: false });
   }
 
@@ -37,8 +38,8 @@ export default class CardsList extends Component {
   updateMoviesList() {
     this.api
       .getMoviesByKeyword(this.props.searchValue)
-      .then((movies) => {
-        this.setState({ movies, loading: false });
+      .then((response) => {
+        this.setState({ movies: response.movies, loading: false });
       })
       .catch(this.onError.bind(this));
   }

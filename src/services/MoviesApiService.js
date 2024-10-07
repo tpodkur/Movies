@@ -13,7 +13,7 @@ export class MoviesApiService {
     const res = await this.getResource(
       `https://api.themoviedb.org/3/search/movie?api_key=${this._apiKey}&query=${keyword}`
     );
-    return this.convertMovieData(res.results);
+    return this.convertResponseData(res);
   }
 
   async getGenres() {
@@ -21,14 +21,19 @@ export class MoviesApiService {
     return res.genres;
   }
 
-  convertMovieData(movies) {
-    return movies.map((movie) => ({
-      id: movie.id,
-      name: movie.title,
-      image: movie.backdrop_path,
-      description: movie.overview,
-      genreIds: movie.genre_ids,
-      releaseDate: movie.release_date,
-    }));
+  convertResponseData(response) {
+    return {
+      page: response.page,
+      totalPages: response.total_pages,
+      totalMovies: response.total_results,
+      movies: response.results.map((movie) => ({
+        id: movie.id,
+        name: movie.title,
+        image: movie.backdrop_path,
+        description: movie.overview,
+        genreIds: movie.genre_ids,
+        releaseDate: movie.release_date,
+      })),
+    };
   }
 }
