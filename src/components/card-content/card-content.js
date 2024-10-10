@@ -1,5 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { Rate } from 'antd';
 
 import img from './default-movie-img.jpg';
 
@@ -24,7 +25,7 @@ const convertGenres = (genreIds, genreNamesArr) => {
     .map((id) => genreNamesArr.find((genre) => id === genre.id))
     .map((genre) => (
       <li className="movie__genre" key={genre.id}>
-        <div className="genre">{genre.name}</div>
+        <span className="genre">{genre.name}</span>
       </li>
     ));
 };
@@ -39,15 +40,18 @@ const CardContent = ({ genres, ...movie }) => {
   const movieReleaseDate = convertReleaseDate(movie.releaseDate);
 
   return (
-    <React.Fragment>
+    <>
       <img className="card__image" alt="movie-poster" src={movieImgPath} />
       <div className="card__info movie">
         <h2 className="movie__name">{movieName}</h2>
         <p className="movie__date">{movieReleaseDate}</p>
         <ul className="movie__genres-list">{movieGenres}</ul>
         <p className="movie__description">{movieDescription}</p>
+        <div className="movie__rate">
+          <Rate allowHalf count={10} style={{ fontSize: 15 }} />
+        </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 
