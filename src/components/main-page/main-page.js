@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce';
 import SearchBar from '../search-bar/search-bar';
 import CardsListWrapper from '../cards-list-wrapper/cards-list-wrapper';
 import Tabs from '../tabs/tabs';
+import { ApiServiceConsumer } from '../api-service-context/api-service-context';
 
 export default class MainPage extends Component {
   state = {
@@ -21,7 +22,11 @@ export default class MainPage extends Component {
         <div className="main-page__search-bar">
           <SearchBar onSearch={this.onSearch} />
         </div>
-        <CardsListWrapper searchValue={this.state.searchValue} />
+        <ApiServiceConsumer>
+          {(api) => {
+            return <CardsListWrapper searchValue={this.state.searchValue} api={api} />;
+          }}
+        </ApiServiceConsumer>
       </>
     );
 

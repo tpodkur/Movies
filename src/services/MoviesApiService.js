@@ -1,20 +1,22 @@
 export class MoviesApiService {
   _apiKey = 'dae5ac66eb0ba7fe8bacaedcf5c621c1';
+  _sessionId;
 
-  async getResource(url) {
+  constructor() {
+    this.getResource(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this._apiKey}`).then(
+      (res) => {
+        this._sessionId = res.guest_session_id;
+      }
+    );
+  }
+
+  getResource = async (url) => {
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}, received ${res.status}, ${res.statusText}`);
     }
     return await res.json();
-  }
-
-  async getGuestSessionId() {
-    const res = await this.getResource(
-      `https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${this._apiKey}`
-    );
-    return res.guest_session_id;
-  }
+  };
 
   async getMoviesByKeyword(keyword, page = 1) {
     const res = await this.getResource(

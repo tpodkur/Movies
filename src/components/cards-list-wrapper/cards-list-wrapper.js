@@ -24,7 +24,7 @@ export default class CardsListWrapper extends Component {
   }
 
   componentDidMount() {
-    this.api
+    this.props.api
       .getGenres()
       .then((genres) => {
         this.genres = genres;
@@ -40,7 +40,7 @@ export default class CardsListWrapper extends Component {
   }
 
   updateMoviesList(searchValue, page) {
-    this.api
+    this.props.api
       .getMoviesByKeyword(searchValue, page)
       .then((response) => {
         const { movies, totalMovies, page, totalPages } = response;
