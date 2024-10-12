@@ -3,6 +3,7 @@ import './card.scss';
 
 import Spinner from '../spinner/spinner';
 import CardContent from '../card-content/card-content';
+import { ApiServiceConsumer } from '../api-service-context/api-service-context';
 
 const Card = ({ loading, ...props }) => {
   const spinner = (
@@ -10,7 +11,13 @@ const Card = ({ loading, ...props }) => {
       <Spinner size="large" />
     </div>
   );
-  const content = <CardContent {...props} />;
+  const content = (
+    <ApiServiceConsumer>
+      {(api) => {
+        return <CardContent {...props} api={api} />;
+      }}
+    </ApiServiceConsumer>
+  );
 
   return <div className="card">{loading ? spinner : content}</div>;
 };

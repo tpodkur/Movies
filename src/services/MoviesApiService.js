@@ -1,5 +1,7 @@
 export class MoviesApiService {
   _apiKey = 'dae5ac66eb0ba7fe8bacaedcf5c621c1';
+  _apiAccessToken =
+    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWU1YWM2NmViMGJhN2ZlOGJhY2FlZGNmNWM2MjFjMSIsIm5iZiI6MTcyODc3MTgxMS40ODUzMTEsInN1YiI6IjY2ZmQzODhmNjdiMmExNjQ2NmQwNmY5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MIgv-dQdS5QqLLQFed4cmTg3cr7CBp8WEJQD9FaqYbc';
   _sessionId;
 
   constructor() {
@@ -18,6 +20,24 @@ export class MoviesApiService {
     return await res.json();
   };
 
+  postResource = async (url, data) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization: `Bearer ${this._apiAccessToken}`,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const res = await fetch(url, options);
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}, received ${res.status}, ${res.statusText}`);
+    }
+    return await res.json();
+  };
+
   async getMoviesByKeyword(keyword, page = 1) {
     const res = await this.getResource(
       `https://api.themoviedb.org/3/search/movie?api_key=${this._apiKey}&query=${keyword}&page=${page}`
@@ -28,6 +48,13 @@ export class MoviesApiService {
   async getGenres() {
     const res = await this.getResource(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this._apiKey}`);
     return res.genres;
+  }
+
+  async postRating(movieId, rating) {
+    return await this.postResource(
+      `https://api.themoviedb.org/3/movie/${movieId}/rating?guest_session_id=${this._sessionId}`,
+      { value: `${rating}` }
+    );
   }
 
   convertResponseData(response) {
