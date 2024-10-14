@@ -5,6 +5,11 @@
   display: flex;
   position: relative;
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__image {
     width: 183px;
     object-fit: cover;
@@ -12,7 +17,7 @@
   }
 
   &__info {
-    padding: 10px 20px;
+    padding: 10px 9px 10px 20px;
   }
 
   &__spinner {
@@ -31,6 +36,15 @@
   &__name {
     font-size: 20px;
     line-height: 28px;
+  }
+
+  &__vote-average {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid black;
+    font-size: 12px;
+    padding: 4px;
   }
 
   &__date {
