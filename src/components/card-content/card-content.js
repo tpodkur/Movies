@@ -34,7 +34,7 @@ const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y')
 
 export default class CardContent extends Component {
   onChangeRating = (value) => {
-    this.props.api.postRating(this.props.id, value).then((res) => {
+    this.props.api.postRating(this.props.movie.id, value).then((res) => {
       // if (res.success) {
       //   this.setState({ rating: value });
       // }
@@ -43,13 +43,13 @@ export default class CardContent extends Component {
   };
 
   render() {
-    const { genres, name, image, description, genreIds, releaseDate } = this.props;
+    const { genres, movie } = this.props;
 
-    const movieName = name;
-    const movieImgPath = convertImgPath(image);
-    const movieDescription = convertDescription(description);
-    const movieGenres = convertGenres(genreIds, genres);
-    const movieReleaseDate = convertReleaseDate(releaseDate);
+    const movieName = movie.name;
+    const movieImgPath = convertImgPath(movie.image);
+    const movieDescription = convertDescription(movie.description);
+    const movieGenres = convertGenres(movie.genreIds, genres);
+    const movieReleaseDate = convertReleaseDate(movie.releaseDate);
 
     return (
       <>

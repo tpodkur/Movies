@@ -8,7 +8,7 @@ const CardsList = ({ movies, genres, loading, searchValue }) => {
     <ul className="cards-list">
       {movies.map((movie) => (
         <li key={movie.id}>
-          <Card {...movie} genres={genres} loading={loading} />
+          <Card movie={movie} genres={genres} loading={loading} />
         </li>
       ))}
 
