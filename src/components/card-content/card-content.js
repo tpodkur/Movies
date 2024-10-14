@@ -12,9 +12,9 @@ const shortenText = (charactersPerLine, linesCount, text) => {
 
 const convertImgPath = (path) => (path ? `https://image.tmdb.org/t/p/original${path}` : img);
 
-const convertDescription = (description) => {
+const convertDescription = (description, isSmall = false) => {
   const charactersPerLine = 35;
-  const linesCount = 4;
+  const linesCount = isSmall ? 2 : 4;
   return description.length > charactersPerLine * linesCount
     ? shortenText(charactersPerLine, linesCount, description)
     : description;
@@ -66,10 +66,11 @@ export default class CardContent extends Component {
 
   render() {
     const { genres, movie } = this.props;
+    const isLittleDescriptionSize = movie.name.length > 38 || movie.genreIds.length > 3;
 
     const movieName = movie.name;
     const movieImgPath = convertImgPath(movie.image);
-    const movieDescription = convertDescription(movie.description);
+    const movieDescription = convertDescription(movie.description, isLittleDescriptionSize);
     const movieGenres = convertGenres(movie.genreIds, genres);
     const movieReleaseDate = convertReleaseDate(movie.releaseDate);
     const movieVoteAverage = movie.voteAverage.toFixed(1);
