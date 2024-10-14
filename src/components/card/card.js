@@ -3,7 +3,7 @@ import './card.scss';
 
 import Spinner from '../spinner/spinner';
 import CardContent from '../card-content/card-content';
-import { ApiServiceConsumer } from '../api-service-context/api-service-context';
+import { ApiServiceConsumer } from '../../context/api-service-context';
 
 const Card = ({ loading, ...props }) => {
   const spinner = (

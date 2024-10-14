@@ -5,6 +5,7 @@ import Error from '../error/error';
 import CardsList from '../cards-list/cards-list';
 import { MoviesApiService } from '../../services/MoviesApiService';
 import Pagination from '../pagination/pagination';
+import { GenresProvider } from '../../context/genres-context';
 
 export default class CardsListWrapper extends Component {
   state = {
@@ -24,19 +25,22 @@ export default class CardsListWrapper extends Component {
   }
 
   componentDidMount() {
-    this.props.api
-      .getGenres()
-      .then((genres) => {
-        this.genres = genres;
-
-        this.updateMoviesList(this.props.searchValue, this.state.page);
-      })
-      .catch(this.onError.bind(this));
+    this.getGenres();
+    this.updateMoviesList(this.props.searchValue, this.state.page);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.searchValue === this.props.searchValue && prevState.page === this.state.page) return;
     this.updateMoviesList(this.props.searchValue, this.state.page);
+  }
+
+  getGenres() {
+    this.props.api
+      .getGenres()
+      .then((genres) => {
+        this.genres = genres;
+      })
+      .catch(this.onError.bind(this));
   }
 
   updateMoviesList(searchValue, page) {
@@ -71,12 +75,9 @@ export default class CardsListWrapper extends Component {
 
     const content = (
       <div className="cards-list-wrapper">
-        <CardsList
-          movies={this.state.movies}
-          genres={this.genres}
-          loading={this.state.loading}
-          searchValue={this.props.searchValue}
-        />
+        <GenresProvider value={this.genres}>
+          <CardsList movies={this.state.movies} loading={this.state.loading} searchValue={this.props.searchValue} />
+        </GenresProvider>
         <div className="cards-list-wrapper__pagination">
           <Pagination
             page={this.state.page}

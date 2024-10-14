@@ -75,7 +75,7 @@ export class MoviesApiService {
         description: movie.overview,
         genreIds: movie.genre_ids,
         releaseDate: movie.release_date,
-        rating: movie.rating,
+        rating: movie.rating || 0,
         voteAverage: movie.vote_average,
       })),
     };

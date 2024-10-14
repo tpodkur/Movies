@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import SearchBar from '../search-bar/search-bar';
 import CardsListWrapper from '../cards-list-wrapper/cards-list-wrapper';
 import Tabs from '../tabs/tabs';
-import { ApiServiceConsumer } from '../api-service-context/api-service-context';
+import { ApiServiceConsumer } from '../../context/api-service-context';
 
 export default class MainPage extends Component {
   state = {
