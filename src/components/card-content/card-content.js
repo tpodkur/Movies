@@ -33,10 +33,6 @@ const convertGenres = (genreIds, genreNamesArr) => {
 const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y') : null);
 
 export default class CardContent extends Component {
-  state = {
-    rating: 0,
-  };
-
   onChangeRating = (value) => {
     this.props.api.postRating(this.props.id, value).then((res) => {
       // if (res.success) {
@@ -64,13 +60,7 @@ export default class CardContent extends Component {
           <ul className="movie__genres-list">{movieGenres}</ul>
           <p className="movie__description">{movieDescription}</p>
           <div className="movie__rate">
-            <Rate
-              allowHalf
-              count={10}
-              style={{ fontSize: 15 }}
-              onChange={this.onChangeRating}
-              value={this.state.rating}
-            />
+            <Rate allowHalf count={10} style={{ fontSize: 15 }} onChange={this.onChangeRating} />
           </div>
         </div>
       </>

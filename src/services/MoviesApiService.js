@@ -57,6 +57,12 @@ export class MoviesApiService {
     );
   }
 
+  async getRatedFilms(page = 1) {
+    return await this.getResource(
+      `https://api.themoviedb.org/3/guest_session/${this._sessionId}/rated/movies?api_key=${this._apiKey}&page=${page}&language=en-US&sort_by=created_at.asc`
+    );
+  }
+
   convertResponseData(response) {
     return {
       page: response.page,
