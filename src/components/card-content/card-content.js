@@ -21,6 +21,8 @@ const convertDescription = (description, isSmall = false) => {
 };
 
 const convertGenres = (genreIds, genreNamesArr) => {
+  if (!genreNamesArr.length) return null;
+
   return genreIds
     .map((id) => genreNamesArr.find((genre) => id === genre.id))
     .map((genre) => (
