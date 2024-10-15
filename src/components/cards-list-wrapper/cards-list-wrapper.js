@@ -48,6 +48,8 @@ export default class CardsListWrapper extends Component {
       .getMoviesByKeyword(searchValue, page)
       .then((response) => {
         const { movies, totalMovies, page, totalPages } = response;
+        this.fillMoviesRating(movies);
+
         this.setState({
           movies,
           totalMovies,
@@ -57,6 +59,15 @@ export default class CardsListWrapper extends Component {
         });
       })
       .catch(this.onError.bind(this));
+  }
+
+  fillMoviesRating(movies) {
+    const ids = movies.map((movie) => movie.id);
+    const ratedMovies = JSON.parse(localStorage.ratedMovies);
+    for (let ratedMovie of ratedMovies) {
+      const index = ids.indexOf(ratedMovie.id);
+      movies[index].rating = ratedMovie.rating;
+    }
   }
 
   onPageChange = (page) => {

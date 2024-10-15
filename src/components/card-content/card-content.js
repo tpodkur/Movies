@@ -34,23 +34,29 @@ const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y')
 
 export default class CardContent extends Component {
   voteAverageElement;
+  state = {
+    rating: 0,
+  };
 
   constructor() {
     super();
     this.voteAverageElement = React.createRef();
+    if (!localStorage.ratedMovies) {
+      localStorage.ratedMovies = JSON.stringify([]);
+    }
   }
 
   onChangeRating = (value) => {
-    this.props.api.postRating(this.props.movie.id, value).then((res) => {
-      // if (res.success) {
-      //   this.setState({ rating: value });
-      // }
-      console.log(res);
-    });
+    // this.props.api.postRating(this.props.movie.id, value).then(console.log);
+    const ratedMovies = JSON.parse(localStorage.ratedMovies);
+    ratedMovies.push({ ...this.props.movie, rating: value });
+    localStorage.ratedMovies = JSON.stringify(ratedMovies);
+    this.setState({ rating: value });
   };
 
   componentDidMount() {
     this.voteAverageElement.current.style.borderColor = this.getVoteAverageColor(this.props.movie.voteAverage);
+    this.setState({ rating: this.props.movie.rating });
   }
 
   getVoteAverageColor(value) {
@@ -89,7 +95,13 @@ export default class CardContent extends Component {
           <ul className="movie__genres-list">{movieGenres}</ul>
           <p className="movie__description">{movieDescription}</p>
           <div className="movie__rate">
-            <Rate allowHalf count={10} style={{ fontSize: 15 }} onChange={this.onChangeRating} />
+            <Rate
+              allowHalf
+              count={10}
+              style={{ fontSize: 15 }}
+              onChange={this.onChangeRating}
+              value={this.state.rating}
+            />
           </div>
         </div>
       </>

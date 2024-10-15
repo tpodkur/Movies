@@ -17,22 +17,26 @@ export default class MainPage extends Component {
   }, 300);
 
   render() {
+    const cardsListWrapper = (
+      <ApiServiceConsumer>
+        {(api) => {
+          return <CardsListWrapper searchValue={this.state.searchValue} api={api} />;
+        }}
+      </ApiServiceConsumer>
+    );
+
     const content = (
       <>
         <div className="main-page__search-bar">
           <SearchBar onSearch={this.onSearch} />
         </div>
-        <ApiServiceConsumer>
-          {(api) => {
-            return <CardsListWrapper searchValue={this.state.searchValue} api={api} />;
-          }}
-        </ApiServiceConsumer>
+        {cardsListWrapper}
       </>
     );
 
     return (
       <div className="main-page">
-        <Tabs searchTabContent={content} />
+        <Tabs searchTabContent={content} ratedTabContent={cardsListWrapper} />
       </div>
     );
   }
