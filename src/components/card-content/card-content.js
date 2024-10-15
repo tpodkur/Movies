@@ -43,17 +43,21 @@ export default class CardContent extends Component {
   constructor() {
     super();
     this.voteAverageElement = React.createRef();
-    if (!localStorage.ratedMovies) {
-      localStorage.ratedMovies = JSON.stringify([]);
-    }
   }
 
   onChangeRating = (value) => {
     // this.props.api.postRating(this.props.movie.id, value).then(console.log);
     const ratedMovies = JSON.parse(localStorage.ratedMovies);
-    ratedMovies.push({ ...this.props.movie, rating: value });
+    const index = ratedMovies.map((movie) => movie.id).indexOf(this.props.movie.id);
+    if (index > -1) {
+      ratedMovies[index].rating = value;
+    } else {
+      ratedMovies.push({ ...this.props.movie, rating: value });
+    }
+
     localStorage.ratedMovies = JSON.stringify(ratedMovies);
     this.setState({ rating: value });
+    this.props.onUpdateRatedMovies();
   };
 
   componentDidMount() {

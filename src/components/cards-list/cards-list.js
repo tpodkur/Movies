@@ -4,12 +4,16 @@ import Card from '../card/card';
 import './cards-list.scss';
 import { GenresConsumer } from '../../context/genres-context';
 
-const CardsList = ({ movies, loading, searchValue }) => {
-  const emptySearchMessage = searchValue.length === 0 && (
+const CardsList = ({ movies, loading, searchValue, isRatedList = false }) => {
+  const emptyRatedListMessage = isRatedList && movies.length === 0 && (
+    <p className="cards-list__message">Sorry! No rated movies</p>
+  );
+
+  const emptySearchMessage = searchValue.length === 0 && !isRatedList && (
     <p className="cards-list__message">Please enter a query to search for movies ...</p>
   );
 
-  const noResultsMessage = searchValue.length !== 0 && movies.length === 0 && (
+  const noResultsMessage = searchValue.length !== 0 && movies.length === 0 && !isRatedList && (
     <p className="cards-list__message">Sorry! Looks like we don&#39;t have any matches for &#34;{searchValue}&#34;</p>
   );
 
@@ -25,6 +29,7 @@ const CardsList = ({ movies, loading, searchValue }) => {
         return (
           <ul className="cards-list">
             {listElements}
+            {emptyRatedListMessage}
             {emptySearchMessage}
             {noResultsMessage}
           </ul>
