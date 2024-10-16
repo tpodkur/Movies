@@ -27,8 +27,11 @@ export default class CardsListWrapper extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchValue === this.props.searchValue && prevState.page === this.state.page) return;
-    this.updateMoviesList(this.props.searchValue, this.state.page);
+    if (prevState.page !== this.state.page) {
+      this.updateMoviesList(this.props.searchValue, this.state.page);
+    } else if (prevProps.searchValue !== this.props.searchValue) {
+      this.updateMoviesList(this.props.searchValue, 1);
+    }
   }
 
   updateMoviesList(searchValue, page) {

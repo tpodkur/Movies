@@ -4,7 +4,8 @@ import { Pagination as AntdPagination } from 'antd';
 const Pagination = ({ page, totalItemsCount, onPageChange }) => {
   return (
     <AntdPagination
-      defaultCurrent={page}
+      current={page}
+      defaultCurrent={1}
       total={totalItemsCount}
       pageSize={20}
       showSizeChanger={false}
