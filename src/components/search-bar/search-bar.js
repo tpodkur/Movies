@@ -11,6 +11,10 @@ export default class SearchBar extends Component {
     this.props.onSearch(event.target.value);
   };
 
+  componentDidMount() {
+    this.setState({ value: this.props.searchValue });
+  }
+
   render() {
     return <Input placeholder="Type to search..." value={this.state.value} onChange={this.onChange} />;
   }

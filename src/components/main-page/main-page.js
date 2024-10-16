@@ -37,7 +37,7 @@ export default class MainPage extends Component {
     const content = (
       <>
         <div className="main-page__search-bar">
-          <SearchBar onSearch={this.onSearch} />
+          <SearchBar onSearch={this.onSearch} searchValue={this.state.searchValue} />
         </div>
         <CardsListWrapper searchValue={this.state.searchValue} {...this.props} />
       </>
