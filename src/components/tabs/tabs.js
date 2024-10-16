@@ -22,6 +22,7 @@ const Tabs = ({ searchTabContent, ratedTabContent }) => {
         items={items}
         centered
         tabBarStyle={{ width: '146px', margin: '0 auto 20px auto' }}
+        destroyInactiveTabPane
       />
     </div>
   );

@@ -14,7 +14,7 @@ export default class RatedCardsList extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.page === this.state.page && prevProps.ratedMovies.length === this.props.ratedMovies.length) return;
+    if (prevState.page === this.state.page) return;
     this.setState({ ratedMovies: this.props.ratedMovies.slice(20 * (this.state.page - 1), 20 * this.state.page) });
   }
 
