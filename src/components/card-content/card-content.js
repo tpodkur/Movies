@@ -35,14 +35,12 @@ const convertGenres = (genreIds, genreNamesArr) => {
 const convertReleaseDate = (date) => (date ? format(new Date(date), 'MMMM d, y') : null);
 
 export default class CardContent extends Component {
-  voteAverageElement;
   state = {
     rating: 0,
   };
 
   constructor() {
     super();
-    this.voteAverageElement = React.createRef();
   }
 
   onChangeRating = (value) => {
@@ -61,7 +59,6 @@ export default class CardContent extends Component {
   };
 
   componentDidMount() {
-    this.voteAverageElement.current.style.borderColor = this.getVoteAverageColor(this.props.movie.voteAverage);
     this.setState({ rating: this.props.movie.rating });
   }
 
@@ -93,7 +90,10 @@ export default class CardContent extends Component {
         <div className="card__info movie">
           <div className="card__header">
             <h2 className="movie__name">{movieName}</h2>
-            <span ref={this.voteAverageElement} className="movie__vote-average">
+            <span
+              className="movie__vote-average"
+              style={{ borderColor: this.getVoteAverageColor(this.props.movie.voteAverage) }}
+            >
               {movieVoteAverage}
             </span>
           </div>
