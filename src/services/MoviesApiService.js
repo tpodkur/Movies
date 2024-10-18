@@ -45,6 +45,13 @@ export class MoviesApiService {
     return this.convertResponseData(res);
   }
 
+  async getTopMovies(page) {
+    const res = await this.getResource(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${this._apiKey}&language=en-US&page=${page}`
+    );
+    return this.convertResponseData(res);
+  }
+
   async getGenres() {
     const res = await this.getResource(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this._apiKey}`);
     return res.genres;

@@ -23,7 +23,11 @@ export default class CardsListWrapper extends Component {
   }
 
   componentDidMount() {
-    this.updateMoviesList(this.props.searchValue, this.state.page);
+    if (this.props.searchValue.length) {
+      this.updateMoviesList(this.props.searchValue, this.state.page);
+    } else {
+      this.getTopMoviesList(this.state.page);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,6 +36,24 @@ export default class CardsListWrapper extends Component {
     } else if (prevProps.searchValue !== this.props.searchValue) {
       this.updateMoviesList(this.props.searchValue, 1);
     }
+  }
+
+  getTopMoviesList(page) {
+    this.props.api
+      .getTopMovies(page)
+      .then((response) => {
+        const { movies, totalMovies, page, totalPages } = response;
+        this.fillMoviesRating(movies);
+
+        this.setState({
+          movies,
+          totalMovies,
+          page,
+          totalPages,
+          loading: false,
+        });
+      })
+      .catch(this.onError.bind(this));
   }
 
   updateMoviesList(searchValue, page) {

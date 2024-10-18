@@ -10,7 +10,7 @@ import { UpdateRatedMoviesProvider } from '../../context/update-rated-movies-con
 
 export default class MainPage extends Component {
   state = {
-    searchValue: 'return',
+    searchValue: '',
     ratedMovies: [],
   };
 
