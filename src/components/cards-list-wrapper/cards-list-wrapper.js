@@ -41,37 +41,26 @@ export default class CardsListWrapper extends Component {
   getTopMoviesList(page) {
     this.props.api
       .getTopMovies(page)
-      .then((response) => {
-        const { movies, totalMovies, page, totalPages } = response;
-        this.fillMoviesRating(movies);
-
-        this.setState({
-          movies,
-          totalMovies,
-          page,
-          totalPages,
-          loading: false,
-        });
-      })
+      .then((res) => this.updateMovies(res))
       .catch(this.onError.bind(this));
   }
 
   updateMoviesList(searchValue, page) {
     this.props.api
       .getMoviesByKeyword(searchValue, page)
-      .then((response) => {
-        const { movies, totalMovies, page, totalPages } = response;
-        this.fillMoviesRating(movies);
-
-        this.setState({
-          movies,
-          totalMovies,
-          page,
-          totalPages,
-          loading: false,
-        });
-      })
+      .then((res) => this.updateMovies(res))
       .catch(this.onError.bind(this));
+  }
+
+  updateMovies({ movies, totalMovies, page, totalPages }) {
+    this.fillMoviesRating(movies);
+    this.setState({
+      movies,
+      totalMovies,
+      page,
+      totalPages,
+      loading: false,
+    });
   }
 
   fillMoviesRating(movies) {
