@@ -34,7 +34,7 @@ export default class MainPage extends Component {
   }
 
   render() {
-    const content = (
+    const searchTab = (
       <>
         <div className="main-page__search-bar">
           <SearchBar onSearch={this.onSearch} searchValue={this.state.searchValue} />
@@ -42,12 +42,12 @@ export default class MainPage extends Component {
         <CardsListWrapper searchValue={this.state.searchValue} {...this.props} />
       </>
     );
-    const rated = <RatedCardsList ratedMovies={this.state.ratedMovies} />;
+    const ratedTab = <RatedCardsList ratedMovies={this.state.ratedMovies} />;
 
     return (
       <div className="main-page">
         <UpdateRatedMoviesProvider value={this.onUpdateRatedMovies.bind(this)}>
-          <Tabs searchTabContent={content} ratedTabContent={rated} />
+          <Tabs searchTabContent={searchTab} ratedTabContent={ratedTab} />
         </UpdateRatedMoviesProvider>
       </div>
     );
