@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './app.scss';
 import MainPage from '../main-page/main-page';
-import { MoviesApiService } from '../../services/MoviesApiService';
+import { MoviesApiService } from '../../services/movies-api-service';
 import { ApiServiceProvider } from '../../context/api-service-context';
 import { GenresProvider } from '../../context/genres-context';
 

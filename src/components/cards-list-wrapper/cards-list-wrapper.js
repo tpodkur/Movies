@@ -3,7 +3,7 @@ import './cards-list-wrapper.scss';
 
 import Error from '../error/error';
 import CardsList from '../cards-list/cards-list';
-import { MoviesApiService } from '../../services/MoviesApiService';
+import { MoviesApiService } from '../../services/movies-api-service';
 import Pagination from '../pagination/pagination';
 
 export default class CardsListWrapper extends Component {

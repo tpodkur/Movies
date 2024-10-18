@@ -1,7 +1,8 @@
+import { API_KEY, API_ACCESS_TOKEN } from './api-config';
+
 export class MoviesApiService {
-  _apiKey = 'dae5ac66eb0ba7fe8bacaedcf5c621c1';
-  _apiAccessToken =
-    'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYWU1YWM2NmViMGJhN2ZlOGJhY2FlZGNmNWM2MjFjMSIsIm5iZiI6MTcyODc3MTgxMS40ODUzMTEsInN1YiI6IjY2ZmQzODhmNjdiMmExNjQ2NmQwNmY5MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.MIgv-dQdS5QqLLQFed4cmTg3cr7CBp8WEJQD9FaqYbc';
+  _apiKey = API_KEY;
+  _apiAccessToken = API_ACCESS_TOKEN;
   _sessionId;
 
   constructor() {
