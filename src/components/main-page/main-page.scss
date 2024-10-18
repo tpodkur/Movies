@@ -6,3 +6,14 @@
     margin-bottom: 34px;
   }
 }
+
+@media (max-width: 938px) {
+  .main-page {
+    width: auto;
+
+    &__search-bar {
+      width: 451px;
+      margin: 0 auto 34px auto;
+    }
+  }
+}
