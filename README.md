@@ -20,10 +20,11 @@ cd Movies
 
 - Зарегистрируйтесь на сайте [The Movie Database (TMDb)](https://www.themoviedb.org).
 - Получите API ключ и токен.
-- Добавьте API ключ и токен в файл конфигурации приложения — api-config.js.
+- Cоздайте файл с именем ".env" в корне проекта.
+- Добавьте API ключ и токен в файл ".env".
 <br>Пример:
-<br>```const API_KEY = 'YOUR_API_KEY_HERE';```
-<br>```const API_ACCESS_TOKEN = 'YOUR_API_ACCESS_TOKEN_HERE';```
+<br>```const REACT_APP_API_KEY = 'YOUR_API_KEY_HERE';```
+<br>```const REACT_APP_API_ACCESS_TOKEN = 'YOUR_API_ACCESS_TOKEN_HERE';```
 <br>
 <!-- end of the list -->
 

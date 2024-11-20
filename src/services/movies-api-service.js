@@ -1,8 +1,6 @@
-import { API_KEY, API_ACCESS_TOKEN } from './api-config';
-
 export class MoviesApiService {
-  _apiKey = API_KEY;
-  _apiAccessToken = API_ACCESS_TOKEN;
+  _apiKey = process.env.REACT_APP_API_KEY;
+  _apiAccessToken = process.env.REACT_APP_API_ACCESS_TOKEN;
   _sessionId;
 
   constructor() {
